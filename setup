@@ -1,0 +1,53 @@
+#!/bin/sh
+echo ""
+echo "  Citrizon's dotFiles!~"
+echo "  https://github.com/citrizon/dotfiles"
+echo ""
+
+__helpmenu () {
+cat << EOF
+  Usage: ${0} -h|--help <all|configonly|localonly>
+EOF
+echo ""
+}
+
+__install_configonly () {
+    mkdir -p $HOME/.config
+    echo "  Copying config directory to $HOME/.config ..."
+    cp -rf ./config/* $HOME/.config
+    echo "  All done!"
+}
+
+__install_localonly () {
+    mkdir -p $HOME/.local
+    echo "  Copying local directory to $HOME/.local ..."
+    cp -rf ./local/* $HOME/.local
+    echo "  All done!"
+}
+
+__main () {
+    # Argument Handling
+    while [[ "${#}" -gt 0 ]]; do
+        case "${1}" in
+            -h|--help)
+                __helpmenu
+                exit 0
+                ;;
+            configonly)
+                __install_configonly
+                shift
+                ;;
+            localonly)
+                __install_localonly
+                shift
+                ;;
+            *)
+                echo "  Unknown operation ${1}"
+                exit 1
+                ;;
+        esac
+    done
+}
+
+__main "${@:-}"
+echo ""
