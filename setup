@@ -6,7 +6,7 @@ echo ""
 
 __helpmenu () {
 cat << EOF
-  Usage: ${0} -h|--help <all|configonly|localonly|depsonly>
+  Usage: ${0} -h|--help <all|configonly|localonly>
 EOF
 echo ""
 }
@@ -25,42 +25,6 @@ __install_localonly () {
     echo "  All done!"
 }
 
-__install_dependencies () {
-    if [[ ! -f /usr/bin/pacman ]]; then
-        echo -e "  Arch Linux Package Manager (pacman) is not found in your system. Aborting.\n"
-        exit
-    fi
-    local SUHANDLE SUPARAM
-    if [[ -f /usr/bin/doas ]]; then
-        SUHANDLE=doas
-        echo "  OpenDoas detected, nice :3"
-    elif [[ -f /usr/bin/sudo ]]; then
-        SUHANDLE=sudo
-        echo "  Sudo detected."
-    else
-        SUHANDLE=su
-        SUPARAM="-c"
-        echo "  OpenDoas or Sudo is not detected, falling back to 'su -c'"
-    fi
-    echo -e "\n:: Started Installation"
-    cat /etc/pacman.conf | grep "chaotic-aur" &> /dev/null
-    if [[ $? -eq 0 ]]; then
-        echo ":: Chaotic-AUR found, skipping Chaotic-AUR setup."
-    else
-        echo ":: Chaotic-AUR is not found, installing."
-        $SUHANDLE $SUPARAM pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-        $SUHANDLE $SUPARAM pacman-key --lsign-key 3056513887B78AEB
-        $SUHANDLE $SUPARAM pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-        $SUHANDLE $SUPARAM pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
-        echo -e "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | $SUHANDLE $SUPARAM tee -a /etc/pacman.conf &> /dev/null
-    fi
-
-    echo ":: Installing dependencies"
-    $SUHANDLE $SUPARAM pacman -S hyprland waybar wlogout xdg-user-dirs bluez bluez-utils blueman swaync swww slurp grim rofi-wayland vorbis-tools kitty hyprlock hyprpicker gtk2 gtk3 gtk4 gtk-engine-murrine playerctl git cliphist wl-clipboard wireplumber brightnessctl
-
-    [[ $? -eq 0 ]] && echo -e "\n:: Dependencies are now installed but you might need\n   to replace some stuff in the configuration files\n   since the optional dependencies are not installed.\n   Here's a list of optional dependencies:\n\n   zed: GUI Text Editor & IDE\n   nautilus: File manager\n   kitty: Terminal Emulator"
-}
-
 __main () {
     # Argument Handling
     while [[ "${#}" -gt 0 ]]; do
@@ -74,16 +38,6 @@ __main () {
                 shift
                 ;;
             localonly)
-                __install_localonly
-                shift
-                ;;
-            depsonly)
-                __install_dependencies
-                shift
-                ;;
-            all)
-                __install_dependencies
-                __install_configonly
                 __install_localonly
                 shift
                 ;;
