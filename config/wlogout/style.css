@@ -1,0 +1,59 @@
+/*
+    Citrizon's dotFiles!~
+    This is a generic wlogout style file
+*/
+
+* {
+    background-image: none;
+    font-size: 13px;
+}
+
+window {
+    background-color: rgba(16, 16, 16, 0);
+}
+
+button {
+    color: #a0a0a0;
+    background-color: rgba(26, 26, 26, 0.8);
+    outline-style: none;
+    border: none;
+    border-width: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20%;
+    border-radius: 0px;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+button:focus {
+    background-color: rgba(32, 32, 32, 0.9);
+    background-size: 25%;
+}
+
+#logout {
+    background-image: image(
+        url("icons/logout_light.png"),
+        url("/usr/share/wlogout/icons/logout.png"),
+        url("/usr/local/share/wlogout/icons/logout.png")
+    );
+    border-radius: 15px 0px 0px 15px;
+}
+
+#shutdown {
+    background-image: image(
+        url("icons/shutdown_light.png"),
+        url("/usr/share/wlogout/icons/shutdown.png"),
+        url("/usr/local/share/wlogout/icons/shutdown.png")
+    );
+    border-radius: 0px 0px 0px 0px;
+}
+
+#reboot {
+    background-image: image(
+        url("icons/reboot_light.png"),
+        url("/usr/share/wlogout/icons/reboot.png"),
+        url("/usr/local/share/wlogout/icons/reboot.png")
+    );
+    border-radius: 0px 15px 15px 0px;
+}
