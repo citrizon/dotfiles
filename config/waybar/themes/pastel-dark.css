@@ -1,0 +1,18 @@
+/*
+    Pastel Dark Theme
+    a Dark theme for Waybar
+    Written by Citrizon.
+*/
+
+@define-color primary    #a0a0a0;
+@define-color secondary  #505050;
+@define-color urgent     #905050;
+@define-color border     #303030;
+@define-color background rgba( 14, 14, 14, 0.6 );
+
+@define-color color0 #0d0d0d;
+@define-color color1 #81967f;
+@define-color color2 #7f968b;
+@define-color color3 #7f9596;
+@define-color color4 #7f8096;
+@define-color color5 #947f96;
