@@ -14,3 +14,6 @@ After that, you can finally view the options by executing this command:
 ./setup -h
 ```
 This branch (brutal branch) contains necessary setup files for installing this brutalist theme.
+## Screenshots
+![goover](https://github.com/user-attachments/assets/60631813-47b9-4ff4-a64a-44e334878818)
+![booger](https://github.com/user-attachments/assets/e5fd6e4e-c851-42b2-bbd4-8f52273baf08)
