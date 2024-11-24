@@ -1,0 +1,28 @@
+#!/bin/sh
+case $1 in
+    selection)
+        SLURPOPT="$(slurp -b 00000000 -s FFFFFF10 -c FFFFFFA0 -d)"
+        [ $? -eq 0 ] && ogg123 $HOME/.config/sounds/screenshot.ogg &> /dev/null &
+        grim -g "$SLURPOPT" - | wl-copy -t "image/png"
+        wl-paste > "$(xdg-user-dir PICTURES)/Screenshot_$(date +%4Y%2m%d%2H%2M%2S%4N).png"
+        ;;
+    full)
+        ogg123 $HOME/.config/sounds/screenshot.ogg &> /dev/null &
+        grim - | wl-copy -t "image/png"
+        wl-paste > "$(xdg-user-dir PICTURES)/Screenshot_$(date +%4Y%2m%d%2H%2M%2S%4N).png"
+        ;;
+    selection_cursorincluded)
+        SLURPOPT="$(slurp -b 00000000 -s FFFFFF10 -c FFFFFFA0 -d)"
+        [ $? -eq 0 ] && ogg123 $HOME/.config/sounds/screenshot.ogg &> /dev/null &
+        grim -c -g "$SLURPOPT" | wl-copy -t "image/png"
+        wl-paste > "$(xdg-user-dir PICTURES)/Screenshot_$(date +%4Y%2m%d%2H%2M%2S%4N).png"
+        ;;
+    full_cursorincluded)
+        ogg123 $HOME/.config/sounds/screenshot.ogg &> /dev/null &
+        grim -c - | wl-copy -t "image/png"
+        wl-paste > "$(xdg-user-dir PICTURES)/Screenshot_$(date +%4Y%2m%d%2H%2M%2S%4N).png"
+        ;;
+    *)
+        echo "Invalid command. Aborting process."
+        ;;
+esac
